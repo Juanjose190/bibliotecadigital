@@ -19,7 +19,7 @@
 ## Paso 2: Ejecutar el backend
 
 1. Abra su IDE y abra el proyecto backend.
-2. Ejecutw la clase principal (DemoApplication.java) con click derecho y click en run. 
+2. Ejecute la clase principal (DemoApplication.java) con click derecho y click en run. 
 3. El backend arrancará en el puerto configurado 8080.
 
 ---
