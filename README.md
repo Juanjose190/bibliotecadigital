@@ -35,6 +35,6 @@
 6. Ejecute el servidor de desarrollo: npm run dev
 7. Abre el navegador en el enlace que te muestra la terminal, por defecto suele ser: http://localhost:5173/
 
-¡Listo para usar! Si tienes dudas, avísame. 🚀
+¡Listo para usar! 🚀
 
 
