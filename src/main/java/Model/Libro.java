@@ -6,6 +6,10 @@
 package Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,9 +17,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.time.LocalDate;
+import java.util.List;
 
+
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id"
+)
 @Entity
 @Table(name = "libros")
 public class Libro {
@@ -34,16 +46,28 @@ public class Libro {
     @Column(name = "copias_disponibles")
     private int copiasDisponibles;
 
-    @JsonBackReference
-    @ManyToOne
+    
+   @ManyToOne
     @JoinColumn(name = "categoria_id")
+   @JsonIgnoreProperties("libros") 
     private Categoria categoria;
 
+    @OneToMany(mappedBy = "libro")
+    @JsonIgnoreProperties("libro")
+    private List<Prestamo> prestamos;
     
     
-    
-    
+@Transient
+public boolean isDisponible() {
+    return this.copiasDisponibles > 0;
+}
+        
     public Libro() {
+    }
+    
+    
+       public Libro(Long id) {
+        this.id = id;
     }
 
     public Libro(Long id, String titulo, String autor, LocalDate fechaPublicacion, int copiasDisponibles, Categoria categoria) {
@@ -109,4 +133,7 @@ public class Libro {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    
+
 }

@@ -9,6 +9,7 @@ import Model.Prestamo;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -19,5 +20,9 @@ public interface LibroRepository extends JpaRepository<Libro, Long>{
     public Libro save(Libro libro);
 
     public List<Libro> findByAutorAndFechaPublicacionBetween(String autor, LocalDate inicio, LocalDate fin);
+    
+    @Query("SELECT p FROM Prestamo p JOIN FETCH p.libro")
+List<Prestamo> findAllConLibro();
+
     
 }

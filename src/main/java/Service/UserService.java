@@ -16,9 +16,22 @@ public class UserService implements IUser {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User crearUsuario(User user) {
-        return userRepository.save(user);
+  public User registrarUsuario(User usuario) {
+        
+        if (userRepository.existsByEmail(usuario.getEmail())) {
+            throw new RuntimeException("Ya existe un usuario con ese correo");
+        }
+
+     
+        if (usuario.getCedula() == null || usuario.getCedula().isEmpty()) {
+            throw new RuntimeException("La cédula es obligatoria");
+        }
+
+        if (userRepository.existsByCedula(usuario.getCedula())) {
+            throw new RuntimeException("Ya existe un usuario con esa cédula");
+        }
+
+        return userRepository.save(usuario);
     }
 
     @Override

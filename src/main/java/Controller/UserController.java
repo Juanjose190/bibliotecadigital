@@ -2,6 +2,7 @@ package Controller;
 
 import Interfaces.IUser;
 import Model.User;
+import Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,15 +12,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}, allowCredentials = "true")
 public class UserController {
 
     @Autowired
     private IUser userService;
 
-    @PostMapping
-    public ResponseEntity<User> crearUsuario(@RequestBody User user) {
-        User nuevoUsuario = userService.crearUsuario(user);
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+    @PostMapping("/registrar")
+    public ResponseEntity<?> registrar(@RequestBody User usuario) {
+        try {
+            User nuevo = userService.registrarUsuario(usuario);
+            return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface IUser {
     
-    User crearUsuario(User user);
+    User registrarUsuario(User user);
     User obtenerUsuarioPorId(Long id);
     List<User> obtenerTodosLosUsuarios();
     void eliminarUsuario(Long id);

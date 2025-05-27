@@ -17,5 +17,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
     public List<User> findByOrderBySancionesDesc();
 
     public List<User> findTop5ByOrderBySancionesDesc();
+
+    public boolean existsByCedula(String cedula);
+
+    public boolean existsByEmail(String email);
     
 }

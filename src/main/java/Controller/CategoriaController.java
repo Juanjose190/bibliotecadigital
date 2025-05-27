@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}, allowCredentials = "true")
 public class CategoriaController {
 
     @Autowired
@@ -19,7 +20,9 @@ public class CategoriaController {
     @PostMapping
     public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria categoria) {
         Categoria nuevaCategoria = categoriaService.crearCategoria(categoria);
+        System.out.println("solicitud recibida en /categorias");
         return new ResponseEntity<>(nuevaCategoria, HttpStatus.CREATED);
+        
     }
 
     @GetMapping("/{id}")

@@ -1,27 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Interfaces;
 
 import Model.Prestamo;
+import Model.PrestamoCreationDTO;
+import Model.PrestamoUpdateDTO;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
-/**
- *
- * @author JUAN JOSE
- */
 public interface IPrestamo {
     
-    Prestamo registrarPrestamo(Prestamo prestamo);
+    // Métodos CRUD básicos
+    Prestamo registrarPrestamo(PrestamoCreationDTO prestamoDto);
     Prestamo obtenerPrestamoPorId(Long id);
     List<Prestamo> obtenerTodosLosPrestamos();
     void eliminarPrestamo(Long id);
-    Prestamo actualizarPrestamo(Long id, Prestamo prestamoActualizado);
-
-    // Consulta avanzada
+    Prestamo actualizarPrestamo(Long id, PrestamoUpdateDTO prestamoActualizado);
+    
+    // Métodos para estadísticas y reportes
     List<Object[]> obtenerLibrosMasPrestadosPorCategoria();
-
-    // Consulta avanzada2
-    List<Object[]> obtenerPromedioRetrasosPorMes();
+    List<Object[]> obtenerPromedioRetrasosPorMes(); // Mantenemos el existente
+    List<Object[]> obtenerConteoRetrasosPorMes();   // Añadimos el nuevo método
 }
